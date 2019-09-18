@@ -14,7 +14,7 @@ describe DockingStation do
     end
 
     #Test whether the Bike release_bike creates, responds to working? method defined in Bike Class
-    it 'creates a working bike' do
+    it 'releases a working bike' do
       bike = Bike.new
       subject.dock(bike)
       expect(subject.release_bike).to be_working
