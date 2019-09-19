@@ -2,6 +2,7 @@ require 'Docking_Station'
 
 describe DockingStation do
   let(:bike) { double('bike') }
+
   describe '#initialize' do
     it 'can be initialized with a capacity' do
       expect(DockingStation.new(20))
