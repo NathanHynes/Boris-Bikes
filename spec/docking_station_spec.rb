@@ -1,6 +1,15 @@
 require 'Docking_Station'
 
 describe DockingStation do
+
+  describe '#initialize' do
+    it 'can be initialized with a capacity' do
+      # expect(DockingStation).to receive(:new).with(1)
+      # DockingStation.new(1)
+      expect(DockingStation.new(20))
+    end
+  end
+
   describe '#release_bike' do
     # Test whether subject responds to release_bike method
     it { expect(DockingStation.new).to respond_to(:release_bike) }
@@ -36,11 +45,21 @@ describe DockingStation do
       expect(subject.docked_bikes[0]).to eq bike
     end
 
-    it 'can only dock 20 bike at a time' do
+    it 'has a default capacity limit' do
       # Fill the Station
       DockingStation::DEFAULT_CAPACITY.times do
         subject.dock(Bike.new)
       end
+      # Add one more bike
+      expect { subject.dock(Bike.new) }.to raise_error 'No more space'
+    end
+    it 'can have a specified limit' do
+      subject = DockingStation.new(30)
+      # Fill the Station
+      30.times do
+        subject.dock(Bike.new)
+      end
+      # Add one more bike
       expect { subject.dock(Bike.new) }.to raise_error 'No more space'
     end
   end
