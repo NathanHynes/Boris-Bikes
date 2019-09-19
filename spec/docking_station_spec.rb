@@ -36,10 +36,8 @@ describe DockingStation do
       expect(subject.docked_bikes[0]).to eq bike
     end
 
-    it 'can only dock 1 bike at a time' do
-      bike = Bike.new
-      subject.dock(bike)
-      expect { subject.dock(bike) }.to raise_error 'No more space'
+    it 'can only dock 20 bike at a time' do
+      expect { 21.times { subject.dock(Bike.new) } }.to raise_error 'No more space'
     end
   end
 end
