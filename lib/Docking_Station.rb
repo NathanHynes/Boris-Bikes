@@ -13,7 +13,12 @@ class DockingStation
   def release_bike
     raise 'No Bike Stored' if empty?
 
-    @docked_bikes.pop
+    # Iterates through the docked bikes and will return working bikes.
+    @docked_bikes.each do |bike|
+      return bike if bike.working?
+    end
+    # If no working bikes found below error is raised
+    raise 'No working Bike Stored'
   end
 
   def dock(bike)

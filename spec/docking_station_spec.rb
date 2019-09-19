@@ -1,7 +1,6 @@
 require 'Docking_Station'
 
 describe DockingStation do
-
   describe '#initialize' do
     it 'can be initialized with a capacity' do
       # expect(DockingStation).to receive(:new).with(1)
@@ -32,6 +31,13 @@ describe DockingStation do
     it 'returns error message if there are no bikes' do
       expect { subject.release_bike }.to raise_error('No Bike Stored')
     end
+
+    it 'doesnt release broken bikes' do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect { subject.release_bike }.to raise_error('No working Bike Stored')
+    end
   end
 
   describe '#dock' do
@@ -61,6 +67,13 @@ describe DockingStation do
       end
       # Add one more bike
       expect { subject.dock(Bike.new) }.to raise_error 'No more space'
+    end
+
+    it 'docks broken bikes' do
+      bike = Bike.new
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.docked_bikes[0]).to eq bike
     end
   end
 end
