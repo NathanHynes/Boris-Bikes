@@ -15,7 +15,7 @@ class DockingStation
 
     # Iterates through the docked bikes and will return working bikes.
     @docked_bikes.each do |bike|
-      return bike if bike.working?
+      return @docked_bikes.delete(bike) if bike.working?
     end
     # If no working bikes found below error is raised
     raise 'No working Bike Stored'
@@ -25,6 +25,12 @@ class DockingStation
     raise 'No more space' if full?
 
     @docked_bikes << bike
+  end
+
+  def broken_bikes
+    @docked_bikes.map do |bike|
+      @docked_bikes.delete(bike) unless bike.working?
+    end
   end
 
   private

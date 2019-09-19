@@ -11,7 +11,7 @@ describe DockingStation do
   describe '#release_bike' do
     # Test whether subject responds to release_bike method
     it { expect(DockingStation.new).to respond_to(:release_bike) }
-    
+
     # Test whether release_bike creates a Bike Class
     it 'creates a class of Bike' do
       allow(bike).to receive(:working?) { true }
@@ -26,12 +26,12 @@ describe DockingStation do
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
-    
+
     # Test whether an error message is raised if there is no bikes.
     it 'returns error message if there are no bikes' do
       expect { subject.release_bike }.to raise_error('No Bike Stored')
     end
-    
+
     it 'doesnt release broken bikes' do
       allow(bike).to receive(:report_broken) { true }
       bike.report_broken
@@ -39,7 +39,7 @@ describe DockingStation do
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('No working Bike Stored')
     end
-    
+
     it 'removes bikes from stored_bikes when they are released' do
       subject.dock(bike)
       allow(bike).to receive(:working?).and_return(true)
@@ -47,7 +47,7 @@ describe DockingStation do
       expect(subject.docked_bikes.length).to eq 0
     end
   end
-  
+
   describe '#dock' do
     # Test to make sure DockingStation Class responds to Dock with 1 argument
     it { is_expected.to respond_to(:dock).with(1).argument }
@@ -75,12 +75,22 @@ describe DockingStation do
       # Add one more bike
       expect { subject.dock(bike) }.to raise_error 'No more space'
     end
-    
+
     it 'docks broken bikes' do
       allow(bike).to receive(:report_broken) { true }
       bike.report_broken
       subject.dock(bike)
       expect(subject.docked_bikes[0]).to eq bike
+    end
+  end
+
+  describe '# broken_bikes' do
+    it 'release broken bikes' do
+      allow(bike).to receive(:report_broken) { true }
+      allow(bike).to receive(:working?) { false }
+      bike.report_broken
+      subject.dock(bike)
+      expect(subject.broken_bikes).to eq [bike]
     end
   end
 end
