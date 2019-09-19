@@ -37,7 +37,11 @@ describe DockingStation do
     end
 
     it 'can only dock 20 bike at a time' do
-      expect { 21.times { subject.dock(Bike.new) } }.to raise_error 'No more space'
+      # Fill the Station
+      DockingStation::DEFAULT_CAPACITY.times do
+        subject.dock(Bike.new)
+      end
+      expect { subject.dock(Bike.new) }.to raise_error 'No more space'
     end
   end
 end
