@@ -15,14 +15,14 @@ describe DockingStation do
 
     # Test whether release_bike creates a Bike Class
     it 'creates a class of Bike' do
-      bike = Bike.new
+      bike = double(:bike)
       subject.dock(bike)
       expect(subject.release_bike.class).to eq Bike
     end
 
     # Test whether the Bike release_bike creates, responds to working? method
     it 'releases a working bike' do
-      bike = Bike.new
+      bike = double(:bike)
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
@@ -33,7 +33,7 @@ describe DockingStation do
     end
 
     it 'doesnt release broken bikes' do
-      bike = Bike.new
+      bike = double(:bike)
       bike.report_broken
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('No working Bike Stored')
@@ -46,7 +46,7 @@ describe DockingStation do
 
     # Test to make sure docked bike returns Bike
     it 'returns docked bikes' do
-      bike = Bike.new
+      bike = double(:bike)
       subject.dock(bike)
       expect(subject.docked_bikes[0]).to eq bike
     end
@@ -54,23 +54,23 @@ describe DockingStation do
     it 'has a default capacity limit' do
       # Fill the Station
       DockingStation::DEFAULT_CAPACITY.times do
-        subject.dock(Bike.new)
+        subject.dock(double(:bike))
       end
       # Add one more bike
-      expect { subject.dock(Bike.new) }.to raise_error 'No more space'
+      expect { subject.dock(double(:bike)) }.to raise_error 'No more space'
     end
     it 'can have a specified limit' do
       subject = DockingStation.new(30)
       # Fill the Station
       30.times do
-        subject.dock(Bike.new)
+        subject.dock(double(:bike))
       end
       # Add one more bike
-      expect { subject.dock(Bike.new) }.to raise_error 'No more space'
+      expect { subject.dock(double(:bike)) }.to raise_error 'No more space'
     end
 
     it 'docks broken bikes' do
-      bike = Bike.new
+      bike = double(:bike)
       bike.report_broken
       subject.dock(bike)
       expect(subject.docked_bikes[0]).to eq bike
