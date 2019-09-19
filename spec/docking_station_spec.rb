@@ -34,10 +34,17 @@ describe DockingStation do
     
     it 'doesnt release broken bikes' do
       allow(bike).to receive(:report_broken) { true }
-      allow(bike).to receive(:working?).and_return(false)
       bike.report_broken
+      allow(bike).to receive(:working?).and_return(false)
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('No working Bike Stored')
+    end
+    
+    it 'removes bikes from stored_bikes when they are released' do
+      subject.dock(bike)
+      allow(bike).to receive(:working?).and_return(true)
+      subject.release_bike
+      expect(subject.docked_bikes.length).to eq 0
     end
   end
   
