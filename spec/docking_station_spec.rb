@@ -79,12 +79,12 @@ describe DockingStation do
     end
   end
 
-  describe '# broken_bikes' do
-    it 'release broken bikes' do
-      bike.report_broken
-      allow(bike).to receive(:working?) { false }
-      subject.dock(bike)
-      expect(subject.broken_bikes).to eq [bike]
-    end
-  end
+  # describe '# broken_bikes' do
+  #   it 'release broken bikes' do
+  #     bike.report_broken
+  #     allow(bike).to receive(:working?) { false }
+  #     subject.dock(bike)
+  #     expect(subject.broken_bikes).to eq [bike]
+  #   end
+  # end
 end

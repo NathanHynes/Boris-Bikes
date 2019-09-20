@@ -1,4 +1,5 @@
 require_relative 'bike'
+require_relative 'van'
 
 # creates DockingStation class
 class DockingStation
@@ -35,11 +36,11 @@ class DockingStation
   end
 
   # This Method is a work in progress
-  def broken_bikes
-    @docked_bikes.map do |bike|
-      @docked_bikes.delete(bike) unless bike.working?
-    end
-  end
+  # def broken_bikes
+  #   @docked_bikes.map do |bike|
+  #     @docked_bikes.delete(bike) unless bike.working?
+  #   end
+  # end
 
   # Can only be called inside Class it is not public outside of Class.
   private

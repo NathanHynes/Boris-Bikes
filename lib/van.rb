@@ -1,11 +1,9 @@
 class Van
 
 def initialize
-  @broken_bikes = []
+  @storage = []
 end
   def collect(dockingstation)
-    dockingstation.broken_bikes.each do |bike|
-      @broken_bikes << bike
-    end
+    @storage = dockingstation.docked_bikes.select { |bike| !bike.working? }
   end
 end
