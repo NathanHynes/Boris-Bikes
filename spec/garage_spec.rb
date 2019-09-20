@@ -27,7 +27,5 @@ describe Garage do
       subject.loadup(van)
       expect(van.storage).to eq [bike]
     end
-
-
   end
 end

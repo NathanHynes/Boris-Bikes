@@ -1,10 +1,10 @@
 require_relative 'garage'
 
 class Van
-  attr_reader :storage
+  attr_accessor :storage
 
   def initialize
-
+    @storage = []
   end
   def collect(dockingstation)
     @storage = dockingstation.docked_bikes.select { |bike| !bike.working? }

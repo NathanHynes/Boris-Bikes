@@ -28,7 +28,14 @@ describe Van do
       expect(garage.inventory).to eq [bike]
     end
   end
-
   # what happens when there are no broken bikes to collect?
+  describe "#distribute" do
+    it "distributes working bikes to a docking station" do
+      ds = DockingStation.new
+      subject.storage = [bike]
+      subject.distribute(ds)
+      expect(ds.docked_bikes).to eq [bike]
+    end
+  end
 
 end

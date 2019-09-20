@@ -4,7 +4,7 @@ require_relative 'garage'
 
 # creates DockingStation class
 class DockingStation
-  attr_reader :docked_bikes
+  attr_accessor :docked_bikes
   DEFAULT_CAPACITY = 20
 
   # upon setting up new class you can assign it a capacity.
