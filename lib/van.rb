@@ -15,4 +15,12 @@ class Van
       garage.inventory << @storage.delete(bike)
     end
   end
+
+  def distribute(station)
+
+    storage.each do |bike|
+      station.docked_bikes << storage.delete(bike)
+    end
+
+  end
 end
