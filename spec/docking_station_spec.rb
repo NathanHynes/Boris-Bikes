@@ -1,7 +1,7 @@
 require 'Docking_Station'
 
 describe DockingStation do
-  let(:bike) { double('bike') }
+  let(:bike) { double :bike, working?: true, class: Bike, report_broken: true}
 
   describe '#initialize' do
     it 'can be initialized with a capacity' do
@@ -15,15 +15,12 @@ describe DockingStation do
 
     # Test whether release_bike creates a Bike Class
     it 'creates a class of Bike' do
-      allow(bike).to receive(:working?) { true }
-      allow(bike).to receive(:class).and_return(Bike)
       subject.dock(bike)
       expect(subject.release_bike.class).to eq Bike
     end
 
     # Test whether the Bike release_bike creates, responds to working? method
     it 'releases a working bike' do
-      allow(bike).to receive(:working?) { true }
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
@@ -34,16 +31,14 @@ describe DockingStation do
     end
 
     it 'doesnt release broken bikes' do
-      allow(bike).to receive(:report_broken) { true }
       bike.report_broken
-      allow(bike).to receive(:working?).and_return(false)
+      allow(bike).to receive(:working?) { false }
       subject.dock(bike)
       expect { subject.release_bike }.to raise_error('No working Bike Stored')
     end
 
     it 'removes bikes from stored_bikes when they are released' do
       subject.dock(bike)
-      allow(bike).to receive(:working?).and_return(true)
       subject.release_bike
       expect(subject.docked_bikes.length).to eq 0
     end
@@ -78,7 +73,6 @@ describe DockingStation do
     end
 
     it 'docks broken bikes' do
-      allow(bike).to receive(:report_broken) { true }
       bike.report_broken
       subject.dock(bike)
       expect(subject.docked_bikes[0]).to eq bike
@@ -87,9 +81,8 @@ describe DockingStation do
 
   describe '# broken_bikes' do
     it 'release broken bikes' do
-      allow(bike).to receive(:report_broken) { true }
-      allow(bike).to receive(:working?) { false }
       bike.report_broken
+      allow(bike).to receive(:working?) { false }
       subject.dock(bike)
       expect(subject.broken_bikes).to eq [bike]
     end
