@@ -9,7 +9,7 @@ describe Van do
 
   describe '#collect_bikes' do
     it 'collects broken bikes from docking stations' do
-      #allow(ds).to receive(:dock).with(1).argument { @docked_bikes = [bike] }
+      # allow(ds).to receive(:dock).with(1).argument { @docked_bikes = [bike] }
       bike.report_broken
       ds.dock bike
       expect(subject.collect(ds)).to eq [bike]
@@ -18,8 +18,8 @@ describe Van do
     end
   end
 
-  describe "#deliver" do
-    it "delivers broken bikes to a user specified garage" do
+  describe '#deliver' do
+    it 'delivers broken bikes to a user specified garage' do
       bike.report_broken
       ds.dock bike
       subject.collect(ds)
@@ -29,13 +29,12 @@ describe Van do
     end
   end
   # what happens when there are no broken bikes to collect?
-  describe "#distribute" do
-    it "distributes working bikes to a docking station" do
+  describe '#distribute' do
+    it 'distributes working bikes to a docking station' do
       ds = DockingStation.new
       subject.storage = [bike]
       subject.distribute(ds)
       expect(ds.docked_bikes).to eq [bike]
     end
   end
-
 end
