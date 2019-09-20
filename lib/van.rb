@@ -1,6 +1,7 @@
 require_relative 'garage'
 
 class Van
+  attr_reader :storage
 
   def initialize
 
@@ -11,7 +12,7 @@ class Van
 
   def deliver(garage)
     @storage.each do |bike|
-      garage.inventory << bike
+      garage.inventory << @storage.delete(bike)
     end
   end
 end

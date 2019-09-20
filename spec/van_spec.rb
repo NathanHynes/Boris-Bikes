@@ -24,7 +24,8 @@ describe Van do
       ds.dock bike
       subject.collect(ds)
       garage = Garage.new
-      expect(subject.deliver(garage)).to eq [bike]
+      subject.deliver(garage)
+      expect(garage.inventory).to eq [bike]
     end
   end
 

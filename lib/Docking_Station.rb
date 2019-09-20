@@ -1,5 +1,6 @@
 require_relative 'bike'
 require_relative 'van'
+require_relative 'garage'
 
 # creates DockingStation class
 class DockingStation
